@@ -163,7 +163,7 @@ class ViPCDataLoader(Dataset):
 if __name__ == "__main__":
     from torch.utils.data import DataLoader
     category = "table"
-    ViPCDataset = ViPCDataLoader('test_list2.txt',data_path='/home/aiello/ShapeNetViPC-Dataset',status='test', category = category)
+    ViPCDataset = ViPCDataLoader('test_list2.txt',data_path='/media/kshitij/KSHIT/ShapeNetViPC-Dataset',status='test', category = category)
     train_loader = DataLoader(ViPCDataset,
                               batch_size=1,
                               num_workers=1,

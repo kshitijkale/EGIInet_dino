@@ -19,7 +19,7 @@ from torch.optim.lr_scheduler import *
 def train_net(cfg):
     torch.backends.cudnn.benchmark = True
 
-    ViPC_train = ViPCDataLoader(r'/project/EGIInet/train_list.txt',
+    ViPC_train = ViPCDataLoader(r'/home/kshitij/kshitij/EGIInet/train_list.txt',
                                  data_path=cfg.DATASETS.SHAPENET.VIPC_PATH, status='train',
                                  view_align=False, category=cfg.TRAIN.CATE)
     train_data_loader = DataLoader(ViPC_train,
@@ -29,7 +29,7 @@ def train_net(cfg):
                               drop_last=True,
                               prefetch_factor=cfg.CONST.DATA_perfetch)
 
-    ViPC_test = ViPCDataLoader(r'/project/EGIInet/test_list.txt',
+    ViPC_test = ViPCDataLoader(r'/home/kshitij/kshitij/EGIInet/test_list.txt',
                                 data_path=cfg.DATASETS.SHAPENET.VIPC_PATH, status='test',
                                 view_align=False, category=cfg.TRAIN.CATE)
     val_data_loader = DataLoader(ViPC_test,
@@ -136,6 +136,9 @@ def train_net(cfg):
         train_writer.add_scalar('Loss/Epoch/cd_pc', avg_cdc, epoch_idx)
         train_writer.add_scalar('Loss/Epoch/style', avg_style, epoch_idx)
         train_writer.add_scalar('Loss/Epoch/loss', avg_loss, epoch_idx)
+        train_writer.add_scalar('LearningRate', optimizer.param_groups[0]['lr'], epoch_idx)
+        train_writer.add_scalar('GradNorm', total_grad_norm, epoch_idx)
+
         logging.info(
                 '[Epoch %d/%d]  Losses = %s' %
                 (epoch_idx, cfg.TRAIN.N_EPOCHS,
